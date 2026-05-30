@@ -28,6 +28,7 @@
         <div class="mobile-logo">AnthroPrep</div>
         <div class="mobile-nav-actions">
             <button class="icon-btn" onclick="toggleDashboard()" title="Syllabus Progress Dashboard">📊</button>
+            <button class="icon-btn" id="mobile-valueadd-indicator" onclick="toggleValueAddFilter()" title="Show Value Additions">💡</button>
             <button class="icon-btn" id="mobile-bookmark-indicator" onclick="toggleBookmarksOnlyFilter()" title="Show Bookmarks Only">⭐</button>
         </div>
     </header>
@@ -45,12 +46,15 @@
                     <input type="text" id="search-input" placeholder="Search across all notes..." oninput="handleSearch()" style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--bg-color); color: var(--text-primary); font-family: var(--font-ui); font-size: 0.9rem;">
                 </div>
 
-                <!-- Bookmark Filter and Dashboard Trigger Button Row -->
-                <div class="quick-filters" style="margin-bottom: 12px; display: flex; gap: 8px;">
-                    <button id="btn-bookmarks-filter" onclick="toggleBookmarksOnlyFilter()" style="flex: 1; padding: 8px; font-size: 0.8rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-ui); font-weight: 500;">
-                        <span>⭐ Bookmarked</span>
+                <!-- Bookmark, Value Add, and Dashboard Filter Row -->
+                <div class="quick-filters" style="margin-bottom: 12px; display: flex; gap: 6px;">
+                    <button id="btn-bookmarks-filter" onclick="toggleBookmarksOnlyFilter()" style="flex: 1; padding: 6px 4px; font-size: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-ui); font-weight: 500;" title="Show Bookmarked Notes Only">
+                        <span>⭐ Bookmarks</span>
                     </button>
-                    <button id="btn-dashboard-toggle" onclick="toggleDashboard()" style="flex: 1; padding: 8px; font-size: 0.8rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-ui); font-weight: 500;">
+                    <button id="btn-valueadd-filter" onclick="toggleValueAddFilter()" style="flex: 1; padding: 6px 4px; font-size: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-ui); font-weight: 500;" title="Show Cloud Value-Addition Sheets Only">
+                        <span>💡 Value-Adds</span>
+                    </button>
+                    <button id="btn-dashboard-toggle" onclick="toggleDashboard()" style="flex: 1; padding: 6px 4px; font-size: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-ui); font-weight: 500;" title="Open Syllabus Progress Dashboard">
                         <span>📊 Dashboard</span>
                     </button>
                 </div>

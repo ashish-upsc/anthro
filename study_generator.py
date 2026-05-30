@@ -160,11 +160,15 @@ if not study_material:
         print(f"  {err}")
     sys.exit(1)
 
-# 3. Save generated content in appropriate Paper directory to feed the web Reader app
+# 3. Save generated content in appropriate Value Addition directory to feed the web Reader app
 if target_note and target_note.get("filename"):
     paper_num = target_note.get("paper", 1)
     orig_filename = target_note.get("filename")
-    filename = f"Paper_{paper_num}/value_add_{orig_filename}"
+    
+    # Create the Value_Addition directory structure if it doesn't exist
+    os.makedirs(f"Value_Addition/Paper_{paper_num}", exist_ok=True)
+    
+    filename = f"Value_Addition/Paper_{paper_num}/value_add_{orig_filename}"
     clean_title = selected_title.replace("PAPER I — ", "").replace("PAPER II — ", "").replace("PAPER I \u2014 ", "").replace("PAPER II \u2014 ", "")
     display_title = f"VALUE ADD: {clean_title}"
 else:

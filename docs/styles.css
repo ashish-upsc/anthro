@@ -821,8 +821,8 @@ body {
     }
 }
 
-/* Bookmarks & Quick Filter Toggle Styling */
-#btn-bookmarks-filter.active, #mobile-bookmark-indicator.active {
+/* Bookmarks, Value-Adds & Quick Filter Toggle Styling */
+#btn-bookmarks-filter.active, #mobile-bookmark-indicator.active, #btn-valueadd-filter.active, #mobile-valueadd-indicator.active {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
     color: white !important;

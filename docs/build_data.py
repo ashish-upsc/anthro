@@ -5,7 +5,7 @@ import re
 base_dir = "/Users/ashish/Downloads/antigravity_ide/Anthropology_optional"
 output_file = os.path.join(base_dir, "docs", "data.json")
 
-def process_paper(paper_dir, paper_num):
+def process_paper(paper_dir, paper_num, is_value_add=False):
     data = []
     flashcards = []
     if not os.path.exists(paper_dir): return data, flashcards
@@ -31,12 +31,13 @@ def process_paper(paper_dir, paper_num):
                 units.append(clean_unit)
         
         data.append({
-            "id": f"paper{paper_num}_{filename}",
+            "id": f"value_add_paper{paper_num}_{filename}" if is_value_add else f"paper{paper_num}_{filename}",
             "paper": paper_num,
             "filename": filename,
             "title": title,
             "units": units,
-            "content": content
+            "content": content,
+            "value_add": is_value_add
         })
         
         # Extract Flashcards
@@ -59,8 +60,11 @@ def process_paper(paper_dir, paper_num):
 p1_data, p1_fc = process_paper(os.path.join(base_dir, "Paper_1"), 1)
 p2_data, p2_fc = process_paper(os.path.join(base_dir, "Paper_2"), 2)
 
-all_data = p1_data + p2_data
-all_fc = p1_fc + p2_fc
+v1_data, v1_fc = process_paper(os.path.join(base_dir, "Value_Addition", "Paper_1"), 1, is_value_add=True)
+v2_data, v2_fc = process_paper(os.path.join(base_dir, "Value_Addition", "Paper_2"), 2, is_value_add=True)
+
+all_data = p1_data + p2_data + v1_data + v2_data
+all_fc = p1_fc + p2_fc + v1_fc + v2_fc
 
 with open(output_file, 'w') as f:
     json.dump(all_data, f, indent=2)

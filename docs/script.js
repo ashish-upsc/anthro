@@ -9,6 +9,7 @@ let searchQuery = "";
 let completedNotes = JSON.parse(localStorage.getItem('completedNotes') || '[]');
 let bookmarkedNotes = JSON.parse(localStorage.getItem('bookmarkedNotes') || '[]');
 let bookmarksOnlyFilter = false;
+let valueAddOnlyFilter = false;
 let currentTheme = localStorage.getItem('theme') || 'light';
 
 // Flashcard State
@@ -206,11 +207,42 @@ function updateBookmarkBtn() {
 
 function toggleBookmarksOnlyFilter() {
     bookmarksOnlyFilter = !bookmarksOnlyFilter;
+    
+    // Turn off Value Add filter if active to prevent clashing empty view
+    if (bookmarksOnlyFilter && valueAddOnlyFilter) {
+        valueAddOnlyFilter = false;
+        const addBtn = document.getElementById('btn-valueadd-filter');
+        const addMobBtn = document.getElementById('mobile-valueadd-indicator');
+        if (addBtn) addBtn.classList.remove('active');
+        if (addMobBtn) addMobBtn.classList.remove('active');
+    }
+    
     const btn = document.getElementById('btn-bookmarks-filter');
     const mobBtn = document.getElementById('mobile-bookmark-indicator');
     
     if (btn) btn.classList.toggle('active', bookmarksOnlyFilter);
     if (mobBtn) mobBtn.classList.toggle('active', bookmarksOnlyFilter);
+    
+    renderSidebar();
+}
+
+function toggleValueAddFilter() {
+    valueAddOnlyFilter = !valueAddOnlyFilter;
+    
+    // Turn off Bookmarks filter if active to prevent clashing empty view
+    if (valueAddOnlyFilter && bookmarksOnlyFilter) {
+        bookmarksOnlyFilter = false;
+        const bookBtn = document.getElementById('btn-bookmarks-filter');
+        const bookMobBtn = document.getElementById('mobile-bookmark-indicator');
+        if (bookBtn) bookBtn.classList.remove('active');
+        if (bookMobBtn) bookMobBtn.classList.remove('active');
+    }
+    
+    const btn = document.getElementById('btn-valueadd-filter');
+    const mobBtn = document.getElementById('mobile-valueadd-indicator');
+    
+    if (btn) btn.classList.toggle('active', valueAddOnlyFilter);
+    if (mobBtn) mobBtn.classList.toggle('active', valueAddOnlyFilter);
     
     renderSidebar();
 }
@@ -264,6 +296,13 @@ function renderSidebar() {
         if (currentUnit !== "ALL") {
             filteredNotes = filteredNotes.filter(n => n.units && n.units.includes(currentUnit));
         }
+    }
+    
+    // Filter by Value Addition flag
+    if (valueAddOnlyFilter) {
+        filteredNotes = filteredNotes.filter(n => n.value_add === true);
+    } else {
+        filteredNotes = filteredNotes.filter(n => !n.value_add);
     }
     
     // Apply Bookmarks filter
