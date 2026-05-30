@@ -202,7 +202,9 @@ try:
                 f"📚 *DAILY STUDY SHEET GENERATED*\n\n"
                 f"🎯 *Topic:* {selected_title}\n"
                 f"📌 *Syllabus Units:* {', '.join(selected_units)}\n"
-                f"⚡ *Features:* Internet Value-Add, Scholar citations, Diagrams, and Model Answers."
+                f"⚡ *Features:* Internet Value-Add, Scholar citations, Diagrams, and Model Answers.\n\n"
+                f"🔗 *Read with Rendered Diagrams & Audio Reader here:*\n"
+                f"https://ashish-upsc.github.io/anthro/"
             ),
             'parse_mode': 'Markdown'
         }
