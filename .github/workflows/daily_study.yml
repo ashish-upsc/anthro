@@ -22,6 +22,8 @@ on:
 jobs:
   generate-study-material:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout Repository
