@@ -17,9 +17,24 @@
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body>
+    <!-- Mobile Top Navigation Bar -->
+    <header class="mobile-navbar">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="mobile-logo">AnthroPrep</div>
+        <div class="mobile-nav-actions">
+            <button class="icon-btn" onclick="toggleDashboard()" title="Syllabus Progress Dashboard">📊</button>
+            <button class="icon-btn" id="mobile-bookmark-indicator" onclick="toggleBookmarksOnlyFilter()" title="Show Bookmarks Only">⭐</button>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay Backdrop for Mobile Drawer -->
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
     <div class="app-container">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -28,6 +43,16 @@
                 
                 <div class="search-container" style="margin-bottom: 12px;">
                     <input type="text" id="search-input" placeholder="Search across all notes..." oninput="handleSearch()" style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--bg-color); color: var(--text-primary); font-family: var(--font-ui); font-size: 0.9rem;">
+                </div>
+
+                <!-- Bookmark Filter and Dashboard Trigger Button Row -->
+                <div class="quick-filters" style="margin-bottom: 12px; display: flex; gap: 8px;">
+                    <button id="btn-bookmarks-filter" onclick="toggleBookmarksOnlyFilter()" style="flex: 1; padding: 8px; font-size: 0.8rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-ui); font-weight: 500;">
+                        <span>⭐ Bookmarked</span>
+                    </button>
+                    <button id="btn-dashboard-toggle" onclick="toggleDashboard()" style="flex: 1; padding: 8px; font-size: 0.8rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-ui); font-weight: 500;">
+                        <span>📊 Dashboard</span>
+                    </button>
                 </div>
 
                 <div class="progress-container">
@@ -62,7 +87,7 @@
                         <option value="sepia">Sepia Mode</option>
                         <option value="dark">Dark Mode</option>
                     </select>
-                    <button id="btn-flashcards" onclick="toggleFlashcards()" style="flex: 1; background: var(--accent-color); color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">Flashcards</button>
+                    <button id="btn-flashcards" onclick="toggleFlashcards()" style="flex: 1; background: var(--accent-color); color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer; font-weight: 500;">Flashcards</button>
                 </div>
             </div>
             <div class="sidebar-nav" id="sidebar-nav">
@@ -72,17 +97,71 @@
 
         <!-- Main Content -->
         <main class="content-area" id="main-content">
+            <!-- Sidebar toggle button for Desktop -->
             <button id="toggle-sidebar" class="toggle-sidebar-btn" onclick="toggleSidebar()" title="Toggle Sidebar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
-            <div id="content-container" class="markdown-body">
-                <div class="empty-state">
-                    <h1>Select a topic from the sidebar to begin reading.</h1>
+
+            <!-- Note Reading Area wrapper for layouts -->
+            <div class="reading-wrapper">
+                <!-- Note Action Toolbar -->
+                <div id="note-toolbar" class="note-toolbar" style="display: none;">
+                    <button id="btn-complete" onclick="toggleComplete()" class="toolbar-btn" title="Mark this note as completed">
+                        <span class="check-icon">✓</span> Mark Completed
+                    </button>
+                    <button id="btn-bookmark" onclick="toggleBookmark()" class="toolbar-btn" title="Bookmark this note">
+                        <span class="star-icon">☆</span> Bookmark
+                    </button>
+                    <button id="btn-speak" onclick="toggleSpeech()" class="toolbar-btn" title="Listen to this note">
+                        <span class="speaker-icon">🔊</span> Listen
+                    </button>
+                    <button id="btn-print" onclick="window.print()" class="toolbar-btn" title="Print note or export as PDF">
+                        <span class="print-icon">🖨️</span> Print/PDF
+                    </button>
+                </div>
+
+                <!-- Text-to-Speech (TTS) Audio Player widget -->
+                <div id="audio-player-container" class="audio-player" style="display: none;">
+                    <div class="audio-player-info">
+                        <span class="audio-icon">🔊</span>
+                        <span class="audio-title">Audio Reader: <span id="audio-note-title">None</span></span>
+                    </div>
+                    <div class="audio-controls">
+                        <button onclick="playAudio()" id="btn-audio-play" class="audio-ctrl-btn" title="Play">Play</button>
+                        <button onclick="pauseAudio()" id="btn-audio-pause" class="audio-ctrl-btn" style="display:none;" title="Pause">Pause</button>
+                        <button onclick="stopAudio()" id="btn-audio-stop" class="audio-ctrl-btn" title="Stop">Stop</button>
+                        <div class="audio-speed-control">
+                            <label for="audio-speed">Speed:</label>
+                            <select id="audio-speed" onchange="changeAudioSpeed()">
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1.0x</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2">2.0x</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Note Markdown Body -->
+                <div id="content-container" class="markdown-body">
+                    <div class="empty-state">
+                        <h1>Select a topic from the sidebar to begin reading.</h1>
+                    </div>
                 </div>
             </div>
             
+            <!-- Flashcards View -->
             <div id="flashcard-container" class="flashcard-container" style="display: none;">
-                <!-- Flashcard UI -->
+                <!-- Syllabus Unit Deck filter for flashcards -->
+                <div class="flashcard-unit-deck">
+                    <label for="fc-unit-select">Study Deck:</label>
+                    <select id="fc-unit-select" onchange="filterFlashcardUnit()">
+                        <option value="ALL">All Cards (Comprehensive)</option>
+                    </select>
+                </div>
+
+                <!-- Flashcard Widget -->
                 <div class="flashcard" onclick="flipCard()">
                     <div class="flashcard-inner">
                         <div class="flashcard-front" id="fc-front">Front</div>
@@ -96,14 +175,53 @@
                 </div>
             </div>
 
-            <!-- Completion Toggle (Injected dynamically per note, but we need a container or handle it in JS) -->
-            <div id="note-actions" style="display: none; text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color);">
-                <button id="btn-complete" onclick="toggleComplete()" style="padding: 12px 24px; font-size: 1rem; border-radius: 8px; border: 2px solid var(--accent-color); background: transparent; color: var(--accent-color); cursor: pointer; font-weight: 600;">Mark as Completed ✅</button>
-            </div>
+
         </main>
     </div>
 
+    <!-- Syllabus Coverage Progress Dashboard Overlay -->
+    <div id="dashboard-overlay" class="dashboard-overlay" style="display: none;">
+        <div class="dashboard-content">
+            <div class="dashboard-header">
+                <h2>Syllabus Progress Dashboard</h2>
+                <button class="close-dashboard-btn" onclick="toggleDashboard()" aria-label="Close Dashboard">&times;</button>
+            </div>
+            
+            <div class="dashboard-stats-grid">
+                <div class="stat-card">
+                    <h3>Overall Syllabus Coverage</h3>
+                    <div class="radial-progress-container">
+                        <svg class="radial-progress" width="120" height="120">
+                            <circle class="radial-bg" cx="60" cy="60" r="50"></circle>
+                            <circle id="radial-fill" class="radial-fill" cx="60" cy="60" r="50"></circle>
+                        </svg>
+                        <div class="radial-text" id="dashboard-overall-pct">0%</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Paper I Completion</h3>
+                    <div class="linear-progress-container">
+                        <div class="linear-text"><span id="p1-comp-count">0</span>/<span id="p1-total-count">0</span> topics done</div>
+                        <div class="linear-bar-bg"><div id="p1-bar-fill" class="linear-bar-fill" style="width: 0%;"></div></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Paper II Completion</h3>
+                    <div class="linear-progress-container">
+                        <div class="linear-text"><span id="p2-comp-count">0</span>/<span id="p2-total-count">0</span> topics done</div>
+                        <div class="linear-bar-bg"><div id="p2-bar-fill" class="linear-bar-fill" style="width: 0%;"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-section-title">Detailed Syllabus Unit Checklists</div>
+            <div class="dashboard-units-grid" id="dashboard-units-grid">
+                <!-- Injected dynamically by JS -->
+            </div>
+        </div>
+    </div>
+
     <!-- Custom JS -->
-    <script src="script.js?v=8"></script>
+    <script src="script.js?v=9"></script>
 </body>
 </html>
