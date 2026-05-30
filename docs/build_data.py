@@ -2,7 +2,9 @@ import os
 import json
 import re
 
-base_dir = "/Users/ashish/Downloads/antigravity_ide/Anthropology_optional"
+# Dynamically find the project base directory (parent of docs/)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+base_dir = os.path.dirname(script_dir)
 output_file = os.path.join(base_dir, "docs", "data.json")
 
 def process_paper(paper_dir, paper_num, is_value_add=False):
