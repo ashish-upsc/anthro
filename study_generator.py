@@ -25,7 +25,6 @@ if not GEMINI_API_KEY or not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
 
 # Configure Gemini
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-1.5-flash')
 
 # Load bundled notes data
 data_file = "docs/data.json"
@@ -118,15 +117,56 @@ Candidate Specific Request:
 Generate the comprehensive reading material:
 """
 
-print("Querying Gemini 1.5 Flash model for study sheet synthesis...")
-try:
-    response = model.generate_content(
-        contents=prompt,
-        generation_config={"temperature": 0.3}
-    )
-    study_material = response.text
-except Exception as e:
-    print(f"Gemini API query failed: {e}")
+print("Querying Gemini models with fallback strategies...")
+model_names_to_try = [
+    'gemini-3.5-pro',
+    'gemini-3.1-pro',
+    'gemini-3.0-pro',
+    'gemini-2.5-pro',
+    'gemini-2.0-pro',
+    'gemini-1.5-pro',
+    'gemini-1.5-pro-latest',
+    'gemini-2.0-pro-exp',
+    'gemini-pro',
+    'gemini-3.5-flash',
+    'gemini-3.1-flash',
+    'gemini-2.5-flash',
+    'gemini-2.0-flash',
+    'gemini-1.5-flash',
+    'gemini-1.5-flash-latest'
+]
+
+study_material = None
+error_messages = []
+
+for m_name in model_names_to_try:
+    print(f"Trying model: {m_name}...")
+    try:
+        model = genai.GenerativeModel(m_name)
+        response = model.generate_content(
+            contents=prompt,
+            generation_config={"temperature": 0.3}
+        )
+        study_material = response.text
+        print(f"✅ Success generating content with model: {m_name}!")
+        break
+    except Exception as e:
+        err_msg = str(e)
+        error_messages.append(f"{m_name}: {err_msg}")
+        print(f"⚠️ Model {m_name} failed: {err_msg}")
+
+if not study_material:
+    print("\n❌ CRITICAL ERROR: All models failed to generate content.")
+    print("Listing available models from your API key for debugging:")
+    try:
+        for m in genai.list_models():
+            print(f"  - {m.name} (supports: {m.supported_generation_methods})")
+    except Exception as list_err:
+        print(f"Could not list models: {list_err}")
+    
+    print("\nDetailed errors for each model tried:")
+    for err in error_messages:
+        print(f"  {err}")
     sys.exit(1)
 
 # 3. Save generated content to a markdown file to send as a document
