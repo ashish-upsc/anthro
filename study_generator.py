@@ -4,6 +4,7 @@ import json
 import argparse
 import datetime
 import requests
+import re
 from google import generativeai as genai
 from duckduckgo_search import DDGS
 
@@ -35,44 +36,66 @@ if os.path.exists(data_file):
 
 print(f"Loaded {len(notes_data)} existing syllabus notes from data.json.")
 
-# Determine target note/unit
-target_note = None
-selected_title = ""
-selected_units = []
-existing_content = ""
+# Gather all unique units across notes_data
+all_units_set = set()
+for note in notes_data:
+    if note.get("units"):
+        for u in note.get("units"):
+            all_units_set.add(u)
 
+# Sort units numerically
+def parse_unit_num(unit_str):
+    try:
+        nums = re.findall(r'\d+(?:\.\d+)?', unit_str)
+        if nums:
+            return [float(x) for x in nums]
+    except:
+        pass
+    return [999.0]
+
+sorted_unique_units = sorted(list(all_units_set), key=parse_unit_num)
+print(f"Discovered {len(sorted_unique_units)} unique syllabus units across all files.")
+
+selected_unit = ""
 if args.unit:
     # Match user-specified unit (e.g. "1.6")
     clean_unit_query = args.unit.lower().replace("unit", "").strip()
-    for note in notes_data:
-        # Check if query matches filename, title, or units list
-        note_units_lower = [u.lower() for u in note.get("units", [])]
-        if any(clean_unit_query in u for u in note_units_lower) or clean_unit_query in note.get("title", "").lower() or clean_unit_query in note.get("filename", "").lower():
-            target_note = note
+    for u in sorted_unique_units:
+        if clean_unit_query in u.lower():
+            selected_unit = u
             break
+    if not selected_unit:
+        selected_unit = f"Unit {args.unit}"
 else:
-    # Sequential rotation based on hour/day to cycle automatically through the 22 notes
-    if notes_data:
+    # Sequential rotation based on hour/day to cycle automatically through all unique syllabus units
+    if sorted_unique_units:
         now = datetime.datetime.utcnow()
         day_of_year = now.timetuple().tm_yday
-        # Determine slot based on 8-hour blocks (3 times a day)
-        slot = (day_of_year * 3 + now.hour // 8) % len(notes_data)
-        target_note = notes_data[slot]
+        slot = (day_of_year * 3 + now.hour // 8) % len(sorted_unique_units)
+        selected_unit = sorted_unique_units[slot]
+    else:
+        selected_unit = "Unit 1.1"
+
+# Find corresponding core note
+target_note = None
+for note in notes_data:
+    if note.get("units") and selected_unit in note.get("units"):
+        target_note = note
+        break
 
 if target_note:
     selected_title = target_note.get("title", "Anthropology Revision Sheet")
-    selected_units = target_note.get("units", [])
+    selected_units = [selected_unit]
     existing_content = target_note.get("content", "")
-    print(f"Target selected: {selected_title} ({', '.join(selected_units)})")
+    print(f"Focused Unit Selected: {selected_unit} (Mapped to parent note: {selected_title})")
 else:
-    # Fallback if no notes data or no match found
-    selected_title = f"Anthropology Revision Sheet for {args.unit or 'General Topics'}"
-    selected_units = [args.unit] if args.unit else ["General Revision"]
-    existing_content = "No existing note content. Generate comprehensive materials from scratch."
-    print(f"No specific matching note found. Creating study material for: {selected_title}")
+    selected_title = f"Anthropology Optional Topic"
+    selected_units = [selected_unit]
+    existing_content = "No parent note found. Generate revision sheet from scratch."
+    print(f"Focused Unit Selected: {selected_unit} (No parent note matched)")
 
 # 1. Fetch web value-add search results (DuckDuckGo Search)
-search_query = f"UPSC Anthropology optional {selected_title} notes value addition case studies current affairs"
+search_query = f"UPSC Anthropology optional {selected_unit} value addition case studies current affairs"
 print(f"Performing DuckDuckGo web search: '{search_query}'...")
 web_context = ""
 try:
@@ -98,10 +121,10 @@ system_instructions = (
 )
 
 prompt = f"""
-Syllabus Topic: {selected_title}
-Mapped Units: {', '.join(selected_units)}
+Syllabus Unit to generate: {selected_unit}
+Parent Chapter Topic: {selected_title}
 
-Existing Notes Content (Use this as your foundation):
+Existing Notes Content (Use this as your core contextual foundation):
 ---
 {existing_content}
 ---
@@ -114,7 +137,7 @@ Recent Web Value-Add Data (Incorporate these current case studies, reports, or d
 Candidate Specific Request:
 {args.prompt or "Perform a general revision sheet, optimize value-add case studies, draw elegant diagrams, and organize thinkers references."}
 
-Generate the comprehensive reading material:
+CRITICAL INSTRUCTION: Generate premium, high-yield value-addition study material specifically and ONLY for the syllabus unit '{selected_unit}'. Do not write about other units mentioned in the parent note. Keep the coverage extremely focused, detailed, yet beautifully bite-sized.
 """
 
 print("Querying Gemini models with fallback strategies...")
@@ -163,14 +186,15 @@ if not study_material:
 # 3. Save generated content in appropriate Value Addition directory to feed the web Reader app
 if target_note and target_note.get("filename"):
     paper_num = target_note.get("paper", 1)
-    orig_filename = target_note.get("filename")
+    orig_filename = target_note.get("filename").replace(".md", "")
+    clean_unit_num = selected_unit.lower().replace("unit", "").strip().replace(".", "_")
     
     # Create the Value_Addition directory structure if it doesn't exist
     os.makedirs(f"Value_Addition/Paper_{paper_num}", exist_ok=True)
     
-    filename = f"Value_Addition/Paper_{paper_num}/value_add_{orig_filename}"
+    filename = f"Value_Addition/Paper_{paper_num}/value_add_{orig_filename}_unit_{clean_unit_num}.md"
     clean_title = selected_title.replace("PAPER I — ", "").replace("PAPER II — ", "").replace("PAPER I \u2014 ", "").replace("PAPER II \u2014 ", "")
-    display_title = f"VALUE ADD: {clean_title}"
+    display_title = f"VALUE ADD: {selected_unit} - {clean_title}"
 else:
     file_safe_title = selected_title.replace(" ", "_").replace("/", "-").replace(":", "").replace("—", "_")[:40]
     filename = f"Anthro_Revision_{file_safe_title}.md"
