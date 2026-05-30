@@ -116,7 +116,7 @@ system_instructions = (
     "2. Scholars and Thinkers citations: Explicitly mention name-dropping thinkers, their books, and field studies in bold (e.g. **M.N. Srinivas (Religion and Society among Coorgs, 1952)**).\n"
     "3. Value-Addition Points: Incorporate recent reports, case studies, tribal committees (e.g. **Xaxa Committee (2014)**, **Elwin Committee**), or recent archaeological excavations.\n"
     "4. Proper Markdown Tables: Compare theories, evolutionary stages, physical features, or developmental indicators.\n"
-    "5. Proper Mermaid flowcharts/diagrams: Synthesize complex mechanisms, tribal migrations, or lineage structures. Keep Mermaid code strictly valid to render easily.\n"
+    "5. Proper Mermaid flowcharts/diagrams: Synthesize complex mechanisms, tribal migrations, or lineage structures. Keep Mermaid code strictly valid to render easily. CRITICAL: Do NOT output invalid, empty, or placeholder Mermaid code blocks (such as 'grid-layout'). Ensure every Mermaid block starts with a valid directive like 'graph TD', 'sequenceDiagram', etc., and contains complete valid nodes.\n"
     "6. Model Exam Question & Structure: Provide a typical 10/15/20 marks exam question on this topic and sketch a high-scoring structured answer template (Introduction, Body points, Diagram reference, and Conclusion)."
 )
 
