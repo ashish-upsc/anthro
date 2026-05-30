@@ -14,11 +14,12 @@ Anthropology (derived from Greek *Anthropos* = "human" and *Logos* = "study") is
 
 ```mermaid
 graph TD
-    A[Anthropology: The Biocultural Bridge] --> B[Biological Dimension]
-    A --> C[Cultural Dimension]
-    B --> D[Genetics, Evolution, Adaptation]
-    C --> E[Symbols, Beliefs, Social Institutions]
-    D <-->|Co-evolutionary Feedback| E
+    A["Anthropology: The Biocultural Bridge"] --> B["Biological Dimension"]
+    A --> C["Cultural Dimension"]
+    B --> D["Genetics, Evolution, Adaptation"]
+    C --> E["Symbols, Beliefs, Social Institutions"]
+    D -->|Co-evolutionary Feedback| E
+    E -->|Co-evolutionary Feedback| D
     style A fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
@@ -38,8 +39,8 @@ The scope of anthropology is defined by its **limitless boundaries** in studying
 ```mermaid
 xychart-beta
     title "The Spatial-Temporal Scope of Anthropology"
-    x-axis [Deep Past (Palaeolithic), Historical Past, Contemporary, Future Horizons]
-    y-axis "Micro (Local/Individual) to Macro (Global/Species)" [0, 10, 20, 30, 40]
+    x-axis ["Deep Past (Palaeolithic)", "Historical Past", "Contemporary", "Future Horizons"]
+    y-axis "Micro (Local/Individual) to Macro (Global/Species)" 0 --> 40
     bar [10, 20, 30, 40]
 ```
 
@@ -102,10 +103,10 @@ Use these precise quotes and references to elevate your answers in 10, 15, and 2
 
 ```mermaid
 graph TD
-    A[Cultural Practice: Slash-and-Burn Agriculture] --> B[Ecological Shift: Stagnant Water Pools]
-    B --> C[Biological Vector: Anopheles Mosquito Breeding]
-    C --> D[Disease Pressure: High Malaria Rates]
-    D --> E[Genetic Adaptation: Selection for HbA/HbS Heterozygotes]
+    A["Cultural Practice: Slash-and-Burn Agriculture"] --> B["Ecological Shift: Stagnant Water Pools"]
+    B --> C["Biological Vector: Anopheles Mosquito Breeding"]
+    C --> D["Disease Pressure: High Malaria Rates"]
+    D --> E["Genetic Adaptation: Selection for HbA/HbS Heterozygotes"]
     E -->|Feedback Loop| A
 ```
 
@@ -138,8 +139,8 @@ graph TD
 
 ```mermaid
 graph LR
-    A[Savagery: Wild food gathering] --> B[Barbarism: Agriculture & Pottery]
-    B --> C[Civilization: Writing & Urbanization]
+    A["Savagery: Wild food gathering"] --> B["Barbarism: Agriculture & Pottery"]
+    B --> C["Civilization: Writing & Urbanization"]
     style A fill:#ffcccb,stroke:#333
     style B fill:#ffe5b4,stroke:#333
     style C fill:#d3f9d3,stroke:#333

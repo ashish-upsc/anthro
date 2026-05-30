@@ -20,23 +20,23 @@ graph TD
     classDef humanities fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1.5px;
 
     %% Nodes
-    A[ANTHROPOLOGY]:::core
+    A["ANTHROPOLOGY"]:::core
     
     %% Natural Sciences Branch
-    B[NATURAL SCIENCES]:::science
-    B1[Biology & Genetics]:::science
-    B2[Geology & Palaeontology]:::science
+    B["NATURAL SCIENCES"]:::science
+    B1["Biology and Genetics"]:::science
+    B2["Geology and Palaeontology"]:::science
     
     %% Social Sciences Branch
-    C[SOCIAL SCIENCES]:::social
-    C1[Sociology]:::social
-    C2[Economics]:::social
-    C3[Political Science]:::social
+    C["SOCIAL SCIENCES"]:::social
+    C1["Sociology"]:::social
+    C2["Economics"]:::social
+    C3["Political Science"]:::social
     
     %% Humanities Branch
-    D[HUMANITIES]:::humanities
-    D1[History]:::humanities
-    D2[Psychology & Cognitive Sci]:::humanities
+    D["HUMANITIES"]:::humanities
+    D1["History"]:::humanities
+    D2["Psychology and Cognitive Sci"]:::humanities
 
     %% Connections
     A --- B
@@ -55,8 +55,8 @@ graph TD
     %% Interdisciplinary Bridges
     B1 -.->|Biocultural Synthesis| A
     C1 -.->|Comparative Social Systems| A
-    D1 -.->|Ethnohistory & Diachronic Depth| A
-    D2 -.->|Culture & Personality| A
+    D1 -.->|Ethnohistory and Diachronic Depth| A
+    D2 -.->|Culture and Personality| A
 ```
 
 ---
