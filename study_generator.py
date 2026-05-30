@@ -119,15 +119,6 @@ Generate the comprehensive reading material:
 
 print("Querying Gemini models with fallback strategies...")
 model_names_to_try = [
-    'gemini-3.5-pro',
-    'gemini-3.1-pro',
-    'gemini-3.0-pro',
-    'gemini-2.5-pro',
-    'gemini-2.0-pro',
-    'gemini-1.5-pro',
-    'gemini-1.5-pro-latest',
-    'gemini-2.0-pro-exp',
-    'gemini-pro',
     'gemini-3.5-flash',
     'gemini-3.1-flash',
     'gemini-2.5-flash',
