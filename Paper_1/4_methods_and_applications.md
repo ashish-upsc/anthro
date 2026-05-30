@@ -177,6 +177,36 @@ graph LR
 ---
 ---
 
+### V. PARTICIPATORY METHODS: PRA & PLA
+
+Participatory Rural Appraisal (PRA) and Participatory Learning and Action (PLA) represent a paradigm shift in research, moving away from "extractive" top-down data collection toward empowering local communities.
+
+* **Participatory Rural Appraisal (PRA):** Developed in the 1980s by Robert Chambers. It enables local people to share, enhance, and analyze their own knowledge of life and conditions to plan and act. It reverses power relations by making the researcher a "facilitator" who "hands over the stick" to the community.
+* **Participatory Learning and Action (PLA):** An evolution of PRA. The term broadened the scope beyond just "rural" areas and emphasized continuous learning and community-led action.
+* **Techniques:** Utilizes inclusive visual methods like **transect walks, social mapping, seasonal calendars, and matrix ranking**, allowing illiterate populations to participate fully.
+
+---
+
+### VI. EXPERIMENTAL ETHNOGRAPHY
+
+Emerging from the 1980s "Writing Culture" critique, experimental ethnography challenges traditional ethnographic authority. 
+
+* **The Shift:** Traditional ethnography was written by an "objective" outsider. Experimental ethnography questions this representation, acknowledging the subjective nature of fieldwork and the power dynamics involved.
+* **Reflexivity:** The anthropologist explicitly acknowledges their own biases and presence in the text.
+* **Collaborative Authorship:** Informants become co-authors rather than mere "subjects" of study (multi-vocal ethnography).
+* **Alternative Modalities:** Uses film, performance, dialogue, and personal narratives to capture complex social realities.
+
+---
+
+### VII. QUALITATIVE DATA ANALYSIS (CAQDAS)
+
+Modern anthropological data analysis heavily utilizes Computer-Assisted Qualitative Data Analysis Software (CAQDAS). 
+
+* **Purpose:** Software like **NVivo** and **ATLAS.ti** does not analyze data automatically; rather, it provides a rigorous "workbench" for the researcher to organize, code, and visualize massive amounts of unstructured data (interview transcripts, field notes, audio).
+* **NVivo:** Highly structured, database-like. Excellent for large datasets, hierarchical coding, and complex queries (matrix coding).
+* **ATLAS.ti:** Highly visual, fluid, and mimics paper-based marginal annotation. Excellent for creating network diagrams to show relationships between themes.
+* **Benefit:** Increases transparency, reproducibility, and the ability to find hidden thematic patterns without losing the researcher's interpretive control.
+
 ## TOPIC 3: APPLIED & FORENSIC ANTHROPOLOGY (UNIT 12)
 
 > [!NOTE]
@@ -224,6 +254,12 @@ graph TD
 
 #### 4. Facial Reconstruction
 * The technique of reconstructing the soft tissue thickness of a human face over an unidentified skull. Forensic artists and software place markers at specific osteological landmarks on the skull (using standard tissue-depth databases compiled for different races) and build clay or digital muscles/skin to create a likeness, assisting in media-based identification.
+
+#### 5. DNA Technology & Disputed Paternity (UPSC Focus)
+While osteology provides a biological profile, DNA profiling (Genetic Fingerprinting) provides positive, individual identification.
+* **Mechanism:** Uses non-coding DNA regions with high variability, such as Variable Number Tandem Repeats (VNTRs) or Short Tandem Repeats (STRs), amplified via Polymerase Chain Reaction (PCR).
+* **Resolving Disputed Paternity:** A child inherits exactly 50% of their genetic markers from the mother and 50% from the biological father. By running a DNA gel electrophoresis or STR profile, experts subtract the bands/alleles the child shares with the mother. The remaining paternal obligate alleles **must** exactly match the putative father for him to be the biological parent. This technique is legally admissible and offers >99.99% accuracy in inclusion and 100% accuracy in exclusion.
+* **Forensic DNA:** Used in mass disaster victim identification, rape cases (separating victim/perpetrator DNA), and identifying ancient skeletal remains (using mitochondrial DNA).
 
 ---
 

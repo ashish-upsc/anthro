@@ -31,7 +31,12 @@ Anthropologists study growth to understand human variation across socio-cultural
 When a child experiences a period of illness or severe malnutrition, their growth rate drops significantly. Once the constraint is removed (e.g., nutrition is restored or the disease is cured), the child's growth rate dramatically accelerates beyond the normal rate for their age to "catch up" to their genetically predetermined growth curve. This demonstrates the strong genetic canalization of human growth.
 
 ### B. Secular Trend in Growth
-A "secular trend" refers to a long-term change in a measurable trait across successive generations. Over the past 150 years in developed and developing nations, there has been a positive secular trend where each generation is taller, heavier, and reaches puberty earlier (earlier age of menarche) than the previous one. This is attributed to better nutrition, improved sanitation, reduction in childhood infectious diseases, and better medical care.
+A "secular trend" refers to a long-term change in a measurable trait across successive generations. Over the past 150 years in developed and developing nations, there has been a positive secular trend where each generation is taller, heavier, and reaches puberty earlier than the previous one. 
+
+**Secular Trend in Age at Menarche (UPSC Value Addition):**
+Analysis of Indian population data, including the **National Family Health Survey (NFHS-5)**, confirms a secular decline in the mean age at menarche among Indian women. 
+* **Drivers:** This decline is primarily attributed to improved nutritional status, better sanitation, reduction in childhood infectious diseases, and urbanization. Enhanced energy balance allows children to reach the critical body fat mass required for menstruation earlier.
+* **Socioeconomic Patterning:** Menarcheal age strongly correlates with wealth status and education, demonstrating the "plasticity" of human growth in response to socio-environmental improvements.
 
 ---
 
@@ -103,6 +108,7 @@ Why do humans age and die? Theories are generally divided into two categories.
 * **Collagen/Cross-Linking Theory:** Collagen, a primary structural protein, becomes increasingly cross-linked and rigid with age. This stiffens tissues, impairs cell permeability, and reduces organ efficiency.
 * **Immunological Theory:** The immune system's efficacy peaks at puberty and gradually declines (immunosenescence). It becomes less able to fight off pathogens and more prone to auto-immune attacks on the body's own tissues.
 * **Disposable Soma Theory (Evolutionary):** Organisms have limited energy resources. Evolution prioritizes allocating energy toward reproductive success rather than indefinite somatic (bodily) maintenance. Once an organism has passed reproductive age, evolutionary selective pressure to maintain the body drops to near zero, leading to senescence.
+* **The Grandmother Hypothesis (Menopause):** Proposes that human females experience menopause (cessation of reproductive capacity long before death) as an evolutionary adaptation. By stopping their own reproduction, older women avoid the high maternal mortality risks of late pregnancies and instead invest their time and resources into foraging and caring for their grandchildren. This increases the survival rate and inclusive fitness of their existing lineage.
 
 ---
 

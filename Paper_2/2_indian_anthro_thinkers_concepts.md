@@ -273,3 +273,28 @@ graph TD
     * **Ethnocentric / Brahminical Bias:** Critiqued for assuming Brahminical culture is universally superior and desirable.
     * **Reinforces Inequality:** Sanskritization implicitly validates the purity-impurity ideology, reinforcing caste inequality rather than challenging it.
 * **Conclusion (Approx. 40 words):** While Sanskritization is restricted by Brahminical biases and modern identity politics, it remains a brilliant, field-tested analytical tool that explains the historic, cultural dynamics of upward social mobility within the traditional Indian caste system.
+
+#### PYQ 2: Discuss the contributions of S.C. Roy in understanding the tribes of India. [2014, 20 Marks] / Role in customary laws [2021, 15 Marks]
+* **Introduction:** Sarat Chandra Roy (1871–1942), often called the **"Father of Indian Ethnography,"** transitioned from a lawyer to an anthropologist to defend the land rights of Chhotanagpur tribes against colonial exploitation.
+* **Body:**
+  * *Monographic Tradition:* Authored the first full-length, holistic ethnographies of Indian tribes (e.g., *The Munda and their Country* (1912), *The Oraons*, *The Birhors*). He documented their kinship, religion, and folklore meticulously.
+  * *Customary Law & Land Rights:* As a lawyer, Roy realized that British courts were stripping tribals of their lands because the British did not understand tribal unwritten customary laws (like the *Khuntkatti* joint ownership system). His ethnographies educated the judiciary, directly influencing the Chhotanagpur Tenancy Act (1908) to protect tribal land.
+  * *Institutionalization:* Founded the journal *'Man in India'* (1921), the first anthropological journal in the country, establishing a platform for Indian anthropological discourse.
+* **Conclusion:** S.C. Roy was the first to practice "Action Anthropology" in India long before the term was coined, using ethnography not just as an academic exercise, but as a legal weapon to protect tribal customary rights from colonial agrarian capitalism.
+
+#### PYQ 3: Discuss the contributions of N.K. Bose in understanding tribal communities and their place in Indian civilization. [2021, 20 Marks]
+* **Introduction:** Nirmal Kumar Bose (1901–1972) was a nationalist anthropologist, a Gandhian, and the Director of the Anthropological Survey of India. His unique contribution lies in interpreting tribal India not as isolated isolates, but as integral parts of the broader Indian civilization.
+* **Body:**
+  * *Hindu Method of Tribal Absorption (1941):* Bose's seminal concept. He argued that Hindu society absorbed tribes primarily through a slow, non-coercive **economic integration**, rather than forced religious conversion. Tribes entered the Hindu fold by monopolizing a specific craft/occupation (like basket-making) and attaching themselves to the caste-based Jajmani system.
+  * *Cultural Pluralism & Tolerance:* Once a tribe entered the caste system at the lower rungs, Brahminical society allowed them to retain their indigenous deities, rituals, and autonomy. Bose praised this as a tolerant, pluralistic method compared to the cultural erasure seen in Western colonialism.
+  * *Civilizational Approach:* Instead of studying tribes in isolation (the colonial approach), Bose studied them in spatial continuum with caste villages. His work *Peasant Life in India* mapped material traits across the country to prove an underlying civilizational unity.
+* **Conclusion:** N.K. Bose shifted the paradigm of Indian anthropology from colonial "isolationism" to civilizational "integration," proving that tribes and castes are two ends of a continuous socio-economic spectrum in India.
+
+#### PYQ 4: Write about the role of colonial administration in the development of anthropology in India. [2019, 15 Marks]
+* **Introduction:** Anthropology in India did not begin as an academic pursuit in universities, but as an administrative necessity for the British Empire. The "Constructive Phase" (1774-1919) of Indian anthropology was entirely driven by colonial administrator-scholars.
+* **Body:**
+  * *The Need for Governance:* Following the 1857 revolt, the British realized they could not govern India without understanding its complex caste and tribal systems. "Knowledge is power" became the administrative doctrine.
+  * *Institutional Foundations:* Sir William Jones founded the **Asiatic Society of Bengal (1784)** to study Indian culture. The establishment of the **Anthropological Survey of India (AnSI)** laid the institutional bedrock.
+  * *Census Operations and Ethnographic Glossaries:* The decennial censuses, especially the **1901 Census by Sir H.H. Risley**, systematically categorized, ranked, and mapped castes and tribes. Administrator-scholars like Edgar Thurston (*Castes and Tribes of Southern India*) and R.V. Russell produced massive encyclopedias detailing local customs, which remain foundational texts today.
+  * *Critique (Colonial Gaze):* The colonial administration’s anthropology was inherently biased. It treated Indian society as a static museum of exotic customs, artificially rigidified the caste system for administrative convenience, and viewed tribes as "noble savages" needing paternalistic isolation.
+* **Conclusion:** While deeply flawed by its imperial agenda, the colonial administration inadvertently birthed Indian anthropology by creating the first systematic ethnographic databases, which later Indian nationalist anthropologists (like S.C. Roy and G.S. Ghurye) would use, critique, and build upon.

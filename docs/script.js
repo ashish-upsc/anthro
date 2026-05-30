@@ -26,6 +26,39 @@ const btnPaper2 = document.getElementById('btn-paper2');
 const unitSelect = document.getElementById('unit-select');
 const btnComplete = document.getElementById('btn-complete');
 
+/* --- MATH PREPROCESSOR FOR MARKDOWN --- */
+function parseMarkdownWithMath(content) {
+    if (!content) return "";
+    const mathBlocks = [];
+    let placeholderCounter = 0;
+
+    // 1. Extract block math $$...$$
+    let tempContent = content.replace(/\$\$([\s\S]+?)\$\$/g, (match, math) => {
+        const placeholder = `QQQMATHPLACEHOLDER_${placeholderCounter}QQQ`;
+        mathBlocks.push({ placeholder, math: `$$${math}$$` });
+        placeholderCounter++;
+        return placeholder;
+    });
+
+    // 2. Extract inline math $...$
+    tempContent = tempContent.replace(/\$([^\$\n]+?)\$/g, (match, math) => {
+        const placeholder = `QQQMATHPLACEHOLDER_${placeholderCounter}QQQ`;
+        mathBlocks.push({ placeholder, math: `$${math}$` });
+        placeholderCounter++;
+        return placeholder;
+    });
+
+    // 3. Parse with marked
+    let html = marked.parse(tempContent);
+
+    // 4. Restore math blocks
+    mathBlocks.forEach(item => {
+        html = html.replace(item.placeholder, item.math);
+    });
+
+    return html;
+}
+
 // Initialize
 async function init() {
     applyTheme(currentTheme);
@@ -203,7 +236,7 @@ function loadNote(note) {
     updateCompleteBtn();
     renderSidebar(); // highlight active
 
-    let html = marked.parse(note.content);
+    let html = parseMarkdownWithMath(note.content);
     html = html.replace(/<blockquote>\s*<p>\[!(TIP|NOTE|IMPORTANT|WARNING|CAUTION)\]([\s\S]*?)<\/p>\s*<\/blockquote>/gi, (match, type, content) => {
         let title = "Context", css = "alert-note";
         if (type === "TIP") { title = "Mnemonic / Strategy"; css = "alert-tip"; }
@@ -215,6 +248,20 @@ function loadNote(note) {
     
     contentContainer.innerHTML = html;
     contentContainer.scrollTop = 0;
+    
+    try {
+        renderMathInElement(contentContainer, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\[", right: "\\]", display: true}
+            ],
+            throwOnError: false
+        });
+    } catch(e) {
+        console.error("KaTeX rendering error:", e);
+    }
     
     try { mermaid.init(undefined, document.querySelectorAll('.mermaid')); } catch(e){}
 }
@@ -243,8 +290,22 @@ function renderFlashcard() {
     if (!flashcardsData || flashcardsData.length === 0) return;
     const card = flashcardsData[flashcardIndex];
     document.getElementById('fc-front').innerHTML = `<b>Topic:</b> ${card.source_title}<br><br><span style="font-size:0.9rem;color:var(--text-secondary)">Click to reveal ${card.type === 'TIP' ? 'mnemonic/tip' : 'important concept'}</span>`;
-    let backHtml = marked.parse(card.content);
-    document.getElementById('fc-back').innerHTML = backHtml;
+    let backHtml = parseMarkdownWithMath(card.content);
+    const fcBack = document.getElementById('fc-back');
+    fcBack.innerHTML = backHtml;
+    try {
+        renderMathInElement(fcBack, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\[", right: "\\]", display: true}
+            ],
+            throwOnError: false
+        });
+    } catch(e) {
+        console.error("KaTeX flashcard rendering error:", e);
+    }
     document.getElementById('fc-count').textContent = `${flashcardIndex + 1} / ${flashcardsData.length}`;
     document.querySelector('.flashcard').classList.remove('flipped');
 }

@@ -3,7 +3,7 @@ import json
 import re
 
 base_dir = "/Users/ashish/Downloads/antigravity_ide/Anthropology_optional"
-output_file = os.path.join(base_dir, "anthro-notes-web", "data.json")
+output_file = os.path.join(base_dir, "docs", "data.json")
 
 def process_paper(paper_dir, paper_num):
     data = []
@@ -65,7 +65,7 @@ all_fc = p1_fc + p2_fc
 with open(output_file, 'w') as f:
     json.dump(all_data, f, indent=2)
 
-fc_file = os.path.join(base_dir, "anthro-notes-web", "flashcards.json")
+fc_file = os.path.join(base_dir, "docs", "flashcards.json")
 with open(fc_file, 'w') as f:
     json.dump(all_fc, f, indent=2)
 

@@ -271,3 +271,31 @@ Non-Governmental Organizations (NGOs) or Voluntary Agencies play a crucial gap-f
     * *Northeast India:* Shifting cultivation environmental degradation, identity struggles, and cross-border ethnicity issues.
     * *Southern India (PVTGs):* High vulnerability, high illiteracy, and nutritional stunting.
 * **Conclusion (Approx. 40 words):** In summary, while the tribal population in India is united by their constitutional Scheduled status, their geographical distribution dictates completely different ecological realities, requiring highly localized, region-specific developmental planning to solve their distinct problems.
+
+#### PYQ 3: Discuss the impact of Forest Rights Act (2006) on the livelihood and culture of tribal people in India. [2021, 20 Marks]
+* **Introduction:** The Scheduled Tribes and Other Traditional Forest Dwellers (Recognition of Forest Rights) Act, 2006 (FRA) is a watershed legislation that aimed to correct the "historical injustice" inflicted on forest dwellers by colonial forest policies.
+* **Body (Impact on Livelihood & Culture):**
+  * *Individual Forest Rights (IFR):* Grants legal land titles (Patta) to tribals cultivating forest land (up to 4 hectares). This secures their livelihood, freeing them from the constant threat of eviction by the forest department.
+  * *Community Forest Rights (CFR):* Restores the cultural and economic right of the village community to manage and protect the forest. It grants ownership over Minor Forest Produce (MFP) like bamboo, tendu leaves, and honey, drastically improving tribal income.
+  * *Cultural Empowerment:* Forest ecosystems are integral to the tribal 'Nature-Man-Spirit' complex. By empowering the Gram Sabha to protect sacred groves and wildlife, the Act preserves their cultural identity and indigenous conservation knowledge.
+  * *Challenges:* Bureaucratic hurdles, high rejection rate of claims by the forest department, and the lack of awareness among PVTGs limit its full potential.
+* **Conclusion:** FRA 2006 shifted the paradigm of forest governance from a colonial "policing" model to a democratic "community conservation" model, recognizing that the survival of the forest is deeply tied to the survival of the tribal culture.
+
+#### PYQ 4: How is PESA Act empowering local self-governance and impacting women's political participation? [2024, 15 Marks]
+* **Introduction:** The Provisions of the Panchayats (Extension to the Scheduled Areas) Act, 1996 (PESA) extended the 73rd Constitutional Amendment to Fifth Schedule Areas, legally recognizing the traditional tribal system of self-governance.
+* **Body:**
+  * *Empowering Local Self-Governance:* PESA makes the **Gram Sabha** (village assembly) the absolute authority. It holds the power to prevent land alienation, control minor water bodies, grant mining leases for minor minerals, and regulate the sale of intoxicants. It shifts power from the district bureaucracy back to the tribal community.
+  * *Impact on Women's Political Participation:*
+    * *The Opportunity:* PESA mandates reservation of seats (at least 50% for STs, and within that, 1/3rd for women). This has brought tribal women out of the domestic sphere into formal political leadership (e.g., as Sarpanch).
+    * *The Reality (Challenges):* Anthropological studies reveal that traditional tribal councils (like the Munda Parha) were heavily patriarchal and excluded women. PESA clashes with these patriarchal customs. Often, women act as "Sarpanch Patis" (proxies for their husbands). However, over time, PESA has provided a legal platform for women to mobilize against alcoholism and domestic violence.
+* **Conclusion:** PESA is the magna carta of tribal self-governance. While it provides the legal scaffold for women's empowerment, true political participation requires continuous capacity building to overcome deeply entrenched patriarchal customs.
+
+#### PYQ 5: Critically discuss the recent welfare measures initiated by the Government for the PVTGs. Comment why PVTGs were erroneously called PTGs. [2024, 20 Marks]
+* **Introduction:** The PVTGs represent the most marginalized and vulnerable section of India's tribal population, characterized by pre-agricultural technology, stagnant populations, and extreme poverty. There are 75 such groups in India.
+* **Body:**
+  * *Why PTGs was an erroneous term:* Originally, they were called "Primitive Tribal Groups" (PTGs). The term "primitive" is an outdated, colonial, and ethnocentric construct that implies these groups are culturally inferior, unevolved, or "savage." In anthropology, no culture is "primitive"—they simply possess different technological adaptations. In 2006, the government rightfully renamed them "Particularly Vulnerable Tribal Groups" (PVTGs) to reflect their socio-economic vulnerability rather than cast a cultural slur.
+  * *Recent Welfare Measures (PM-JANMAN):*
+    * Launched in 2023, the **PM-JANMAN** scheme is a ₹24,000+ crore mission focusing on the saturation of basic amenities.
+    * *Key Pillars:* Provision of pucca houses, piped drinking water, mobile medical units, and construction of Van Dhan Vikas Kendras (VDVKs) for MFP processing.
+    * *Critique/Challenges:* The "one-size-fits-all" approach often fails. For example, building concrete houses for nomadic PVTGs (like the Birhors) who prefer traditional leaf-huts leads to abandonment of the new structures. Interventions must be culturally sensitive and aligned with their specific Nature-Man-Spirit complex.
+* **Conclusion:** The semantic shift from PTG to PVTG marks a maturing of India's tribal policy. Recent welfare measures like PM-JANMAN are unprecedented in scale, but their success depends on executing them through micro-level, anthropological planning rather than top-down bureaucratic mandates.

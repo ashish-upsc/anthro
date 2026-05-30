@@ -66,3 +66,31 @@ graph TD
 
 > [!TIP]
 > **Anthropological Perspective:** Demography isn't just numbers; it's deeply tied to kinship systems, patriarchy, and cultural ecology. For instance, the skewed sex ratio is directly tied to the *hypergamous* marriage system and the economic burden of dowry in patriarchal Indian societies.
+
+---
+
+## 5. UPSC PREVIOUS YEAR QUESTIONS (PYQs) & ANSWER BLUEPRINTS
+
+---
+
+#### PYQ 1: Critically compare Risley's and Sarkar's approaches to the classification of peoples of India. [2023, 15 Marks]
+* **Introduction:** Sir Herbert Hope Risley (1915) and S.S. Sarkar (1961) presented two distinct models for classifying the ethnic diversity of the Indian population, moving from colonial anthropometry to early genetic/morphological approaches.
+* **Body:**
+  * **Risley's Approach (The Colonial/Linguistic Model):**
+    * *Method:* Heavily relied on anthropometry (specifically the Nasal Index and Cephalic Index) combined with language and caste hierarchies. 
+    * *Classification:* Divided India into seven types (Turko-Iranian, Indo-Aryan, Scytho-Dravidian, Aryo-Dravidian, Mongolo-Dravidian, Mongoloid, Dravidian).
+    * *Core Flaw:* Risley conflated race (a biological concept) with language (a cultural trait). For instance, "Aryo-Dravidian" makes no biological sense. He also believed caste hierarchy mirrored racial purity.
+  * **S.S. Sarkar's Approach (The Modern Morphological Model):**
+    * *Method:* Rejected Risley's linguistic conflation. Sarkar based his classification purely on physical morphology, cranial capacity, and early blood group data.
+    * *Classification:* Categorized the population into six primary groups: Australoid (Veddid), Indo-Aryan, Irano-Scythian, Mundari, Malayo-Polynesian, and Mongoloid.
+    * *Key Differences:* Sarkar recognized the *Australoids* (not Dravidians) as the earliest autochthones of India. He correctly separated the Munda-speaking peoples (Mundari) from the Dravidians biologically.
+* **Conclusion:** While Risley's classification is considered historically significant as the first major attempt, Sarkar’s approach is scientifically superior as it divorced biological race from linguistic and caste-based colonial prejudices.
+
+#### PYQ 2: What are the demographic challenges of India's changing population dynamics in the next 50 years? [2024, 15 Marks]
+* **Introduction:** India has entered the third stage of demographic transition, boasting the world's largest population and a massive youth bulge. However, projections for the next 50 years reveal complex challenges as the demographic dividend transitions into a demographic burden.
+* **Body (Key Challenges):**
+  * *1. The Aging Crisis (Geriatric Burden):* By 2050, over 20% of the population will be elderly. The collapse of the traditional joint family system, coupled with inadequate state social security, will lead to a massive crisis in elderly care and healthcare financing.
+  * *2. The "Window of Opportunity" Closing:* The demographic dividend is temporary. If the state fails to provide adequate education, skilling, and massive job creation now, the "youth bulge" will convert into a "demographic disaster" characterized by high unemployment, social unrest, and crime.
+  * *3. Extreme Regional Imbalances:* Southern states (Kerala, Tamil Nadu) are already below replacement-level fertility and are rapidly aging, leading to labor shortages. Northern states (UP, Bihar) continue to grow rapidly. This asymmetry will spark severe political tensions regarding the delimitation of parliamentary constituencies (political representation) and federal revenue sharing.
+  * *4. The Sex-Ratio Deficit:* The cumulative effect of decades of female foeticide/infanticide has resulted in a "marriage squeeze" (millions of "missing women"), leading to cross-regional bride trafficking and increased gender-based violence.
+* **Conclusion:** To mitigate these challenges, India must shift its policy focus from purely population *control* to population *management*, investing heavily in human capital (health, education) and geriatric infrastructure today to secure the demographic landscape of 2074.
