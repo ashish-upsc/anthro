@@ -160,17 +160,34 @@ if not study_material:
         print(f"  {err}")
     sys.exit(1)
 
-# 3. Save generated content to a markdown file to send as a document
-file_safe_title = selected_title.replace(" ", "_").replace("/", "-").replace(":", "").replace("—", "_")[:40]
-filename = f"Anthro_Revision_{file_safe_title}.md"
+# 3. Save generated content in appropriate Paper directory to feed the web Reader app
+if target_note and target_note.get("filename"):
+    paper_num = target_note.get("paper", 1)
+    orig_filename = target_note.get("filename")
+    filename = f"Paper_{paper_num}/value_add_{orig_filename}"
+    clean_title = selected_title.replace("PAPER I — ", "").replace("PAPER II — ", "").replace("PAPER I \u2014 ", "").replace("PAPER II \u2014 ", "")
+    display_title = f"VALUE ADD: {clean_title}"
+else:
+    file_safe_title = selected_title.replace(" ", "_").replace("/", "-").replace(":", "").replace("—", "_")[:40]
+    filename = f"Anthro_Revision_{file_safe_title}.md"
+    display_title = f"DAILY ANTHROPOLOGY STUDY SHEET: {selected_title}"
 
 with open(filename, 'w') as f:
-    f.write(f"# DAILY ANTHROPOLOGY STUDY SHEET\n")
+    f.write(f"# {display_title}\n")
     f.write(f"**Date:** {datetime.date.today().strftime('%B %d, %Y')} | **Target:** {selected_title}\n")
     f.write(f"**Syllabus Mapping:** {', '.join(selected_units)}\n\n")
     f.write(study_material)
 
-print(f"Successfully saved generated revision sheet to file: {filename}")
+print(f"Successfully saved generated revision sheet to: {filename}")
+
+# Run compiler dynamically to bundle the new value-addition into data.json
+print("Re-compiling website data.json bundle...")
+try:
+    import subprocess
+    subprocess.run(["python", "docs/build_data.py"], check=True)
+    print("Website data bundle compiled successfully!")
+except Exception as build_err:
+    print(f"Warning: Dynamic compilation of data.json failed: {build_err}")
 
 # 4. Route output via Telegram Bot API
 print("Sending generated revision sheet to Telegram...")
