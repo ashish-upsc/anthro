@@ -11,9 +11,7 @@
 
 Anthropology (derived from Greek *Anthropos* = "human" and *Logos* = "study") is the **holistic, comparative, bio-cultural, and evolutionary study of humankind** across all space and time. 
 
-```mermaid
-grid-layout
-```
+
 ```mermaid
 graph TD
     A[Anthropology: The Biocultural Bridge] --> B[Biological Dimension]
