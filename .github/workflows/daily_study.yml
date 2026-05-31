@@ -8,6 +8,8 @@ on:
     # 2:00 PM IST = 8:30 AM UTC
     # 8:00 PM IST = 2:30 PM UTC
     - cron: '30 2,8,14 * * *'
+    # TEST SCHEDULE: Scheduled for 5:40 AM UTC (11:10 AM IST) to verify self-triggering
+    - cron: '40 5 * * *'
   workflow_dispatch:
     inputs:
       specific_unit:
@@ -32,7 +34,6 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-state: 'false'
         python-version: '3.10'
 
     - name: Install Dependencies
