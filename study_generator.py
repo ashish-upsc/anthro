@@ -36,14 +36,16 @@ if os.path.exists(data_file):
 
 print(f"Loaded {len(notes_data)} existing syllabus notes from data.json.")
 
-# Gather all unique units across notes_data
-all_units_set = set()
+# Gather all core (non-value-add) units and their papers
+all_paper_units = []
 for note in notes_data:
-    if note.get("units"):
+    if not note.get("value_add") and note.get("units"):
         for u in note.get("units"):
-            all_units_set.add(u)
+            pair = (note.get("paper", 1), u)
+            if pair not in all_paper_units:
+                all_paper_units.append(pair)
 
-# Sort units numerically
+# Sort unit-paper pairs numerically by unit number, and then by paper
 def parse_unit_num(unit_str):
     try:
         nums = re.findall(r'\d+(?:\.\d+)?', unit_str)
@@ -53,35 +55,88 @@ def parse_unit_num(unit_str):
         pass
     return [999.0]
 
-sorted_unique_units = sorted(list(all_units_set), key=parse_unit_num)
-print(f"Discovered {len(sorted_unique_units)} unique syllabus units across all files.")
+def sort_key(pair):
+    paper, unit_str = pair
+    return (paper, parse_unit_num(unit_str))
+
+sorted_paper_units = sorted(all_paper_units, key=sort_key)
+print(f"Discovered {len(sorted_paper_units)} unique core syllabus unit-paper pairs.")
 
 selected_unit = ""
-if args.unit:
-    # Match user-specified unit (e.g. "1.6")
-    clean_unit_query = args.unit.lower().replace("unit", "").strip()
-    for u in sorted_unique_units:
-        if clean_unit_query in u.lower():
-            selected_unit = u
-            break
-    if not selected_unit:
-        selected_unit = f"Unit {args.unit}"
-else:
-    # Sequential rotation based on hour/day to cycle automatically through all unique syllabus units
-    if sorted_unique_units:
-        now = datetime.datetime.utcnow()
-        day_of_year = now.timetuple().tm_yday
-        slot = (day_of_year * 3 + now.hour // 8) % len(sorted_unique_units)
-        selected_unit = sorted_unique_units[slot]
-    else:
-        selected_unit = "Unit 1.1"
+selected_paper = 1
 
-# Find corresponding core note
+if args.unit:
+    # Match user-specified unit (e.g. "1.6" or "paper 2 unit 1.3")
+    unit_query = args.unit.lower()
+    
+    # Detect if user specified paper 1 or paper 2
+    specified_paper = None
+    if "p2" in unit_query or "paper 2" in unit_query or "paper_2" in unit_query:
+        specified_paper = 2
+    elif "p1" in unit_query or "paper 1" in unit_query or "paper_1" in unit_query:
+        specified_paper = 1
+        
+    clean_unit_query = unit_query.replace("unit", "").replace("paper", "").replace("p1", "").replace("p2", "").strip()
+    clean_unit_query = re.sub(r'[\s\-_]+', '', clean_unit_query)
+    
+    # Try to find a match in sorted_paper_units
+    matched_pair = None
+    for paper, u in sorted_paper_units:
+        u_clean = re.sub(r'[\s\-_]+', '', u.lower().replace("unit", ""))
+        if clean_unit_query in u_clean:
+            if specified_paper is None or paper == specified_paper:
+                matched_pair = (paper, u)
+                break
+                
+    if matched_pair:
+        selected_paper, selected_unit = matched_pair
+        print(f"Matched user input '{args.unit}' to Paper {selected_paper}, {selected_unit}")
+    else:
+        selected_paper = specified_paper if specified_paper is not None else 1
+        selected_unit = f"Unit {args.unit.strip()}"
+        print(f"No exact syllabus match for '{args.unit}'. Falling back to Paper {selected_paper}, {selected_unit}")
+else:
+    # Strict sequential selection: find the FIRST ungenerated (paper, unit)
+    generated_pairs = set()
+    for note in notes_data:
+        if note.get("value_add"):
+            p = note.get("paper", 1)
+            if note.get("units"):
+                for u in note.get("units"):
+                    generated_pairs.add((p, u))
+                    
+    print(f"Found {len(generated_pairs)} already generated value-addition unit-paper pairs.")
+    
+    selected_pair = None
+    for pair in sorted_paper_units:
+        if pair not in generated_pairs:
+            selected_pair = pair
+            break
+            
+    if selected_pair:
+        selected_paper, selected_unit = selected_pair
+        print(f"Next sequential ungenerated unit selected: Paper {selected_paper}, {selected_unit}")
+    else:
+        # Fallback if ALL units have been generated: cycle using slot rotation to avoid blocking
+        if sorted_paper_units:
+            import datetime
+            now = datetime.datetime.utcnow()
+            day_of_year = now.timetuple().tm_yday
+            slot = (day_of_year * 3 + now.hour // 8) % len(sorted_paper_units)
+            selected_paper, selected_unit = sorted_paper_units[slot]
+            print(f"All syllabus units generated! Falling back to rotation slot {slot}: Paper {selected_paper}, {selected_unit}")
+        else:
+            selected_paper = 1
+            selected_unit = "Unit 1.1"
+            print(f"No syllabus units found in data.json. Defaulting to Paper {selected_paper}, {selected_unit}")
+
+# Find corresponding core note matching both selected_unit and selected_paper
 target_note = None
 for note in notes_data:
-    if note.get("units") and selected_unit in note.get("units"):
-        target_note = note
-        break
+    if not note.get("value_add") and note.get("paper") == selected_paper:
+        if note.get("units") and selected_unit in note.get("units"):
+            target_note = note
+            break
 
 if target_note:
     selected_title = target_note.get("title", "Anthropology Revision Sheet")
