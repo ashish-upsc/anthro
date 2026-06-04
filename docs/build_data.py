@@ -25,7 +25,25 @@ def process_paper(paper_dir, paper_num, is_value_add=False):
         
         # Extract all units mentioned in Syllabus Mapping blocks
         units = []
-        unit_matches = re.finditer(r'(?:Unit|UNIT)\s*(\d+(?:\.\d+)?)', content)
+        lines = content.split('\n')
+        mapping_text = []
+        in_mapping = False
+        for line in lines:
+            if 'syllabus mapping' in line.lower():
+                mapping_text.append(line)
+                in_mapping = True
+                continue
+            if in_mapping:
+                clean = line.strip()
+                if clean.startswith('*') or clean.startswith('-') or clean.startswith('>') or clean.startswith('1.') or clean.startswith('2.') or (clean == ''):
+                    if clean:
+                        mapping_text.append(line)
+                else:
+                    in_mapping = False
+        if not mapping_text:
+            mapping_text = lines[:15]
+        text_to_search = '\n'.join(mapping_text)
+        unit_matches = re.finditer(r'(?:Unit|UNIT)\s*(\d+(?:\.\d+)?)', text_to_search)
         for m in unit_matches:
             unit_num = m.group(1)
             clean_unit = f"Unit {unit_num}"

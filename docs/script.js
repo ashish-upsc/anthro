@@ -80,10 +80,10 @@ async function init() {
     updatePomoDisplay();
 
     try {
-        const resNotes = await fetch('data.json');
+        const resNotes = await fetch('data.json?v=' + new Date().getTime());
         notesData = await resNotes.json();
         
-        const resCards = await fetch('flashcards.json');
+        const resCards = await fetch('flashcards.json?v=' + new Date().getTime());
         flashcardsData = await resCards.json();
 
         updateUnitDropdown();
@@ -247,6 +247,17 @@ function toggleValueAddFilter() {
     renderSidebar();
 }
 
+function getValueAddNotesForCore(coreNote) {
+    if (!coreNote || !coreNote.filename) return [];
+    const corePrefix = "value_add_" + coreNote.filename.replace('.md', '');
+    return notesData.filter(n => n.value_add && n.paper === coreNote.paper && n.filename && n.filename.startsWith(corePrefix));
+}
+
+function loadNoteById(id) {
+    const note = notesData.find(n => n.id === id);
+    if (note) loadNote(note);
+}
+
 /* --- NAVIGATION & FILTER LOGIC --- */
 function updateUnitDropdown() {
     unitSelect.innerHTML = '<option value="ALL">All Units</option>';
@@ -328,6 +339,42 @@ function renderSidebar() {
             <div class="nav-meta">${note.units ? note.units.join(', ') : ''}</div>
         `;
         sidebarNav.appendChild(div);
+
+        // If we are showing core notes and not in global search mode, nest the related value-addition notes
+        if (!note.value_add && searchQuery.trim() === "" && !valueAddOnlyFilter) {
+            let related = getValueAddNotesForCore(note);
+            if (currentUnit !== "ALL") {
+                related = related.filter(n => n.units && n.units.includes(currentUnit));
+            }
+            if (bookmarksOnlyFilter) {
+                related = related.filter(vaNote => bookmarkedNotes.includes(vaNote.id));
+            }
+            
+            related.forEach(vaNote => {
+                const vaDiv = document.createElement('div');
+                vaDiv.className = 'nav-item sub-item';
+                if (vaNote.id === currentNoteId) vaDiv.classList.add('active');
+                vaDiv.onclick = (e) => {
+                    e.stopPropagation();
+                    loadNote(vaNote);
+                };
+                
+                const vaDone = completedNotes.includes(vaNote.id) ? "✅ " : "";
+                const vaBookmarked = bookmarkedNotes.includes(vaNote.id) ? "⭐ " : "";
+                
+                // Extract unit number from filename
+                const unitMatch = vaNote.filename.match(/unit_(\d+(?:_\d+)?)/);
+                const unitStr = unitMatch ? "Unit " + unitMatch[1].replace(/_/g, '.') : vaNote.units.join(', ');
+                
+                vaDiv.innerHTML = `
+                    <div class="nav-title" style="padding-left: 15px; font-size: 0.82rem; font-weight: 500; color: var(--text-secondary); display: flex; align-items: center; gap: 4px;">
+                        <span>💡</span>
+                        <span>${vaDone}${vaBookmarked}${unitStr} Value-Add</span>
+                    </div>
+                `;
+                sidebarNav.appendChild(vaDiv);
+            });
+        }
     });
 }
 
@@ -345,7 +392,31 @@ function loadNote(note) {
     updateBookmarkBtn();
     renderSidebar(); // highlight active
 
-    let html = parseMarkdownWithMath(note.content);
+    let html = "";
+    if (!note.value_add) {
+        const related = getValueAddNotesForCore(note);
+        if (related.length > 0) {
+            let linksHtml = "";
+            related.forEach(vaNote => {
+                const unitMatch = vaNote.filename.match(/unit_(\d+(?:_\d+)?)/);
+                const unitStr = unitMatch ? "Unit " + unitMatch[1].replace(/_/g, '.') : vaNote.units.join(', ');
+                linksHtml += `
+                    <button class="value-add-btn" onclick="event.stopPropagation(); loadNoteById('${vaNote.id}')">
+                        💡 ${unitStr} Value-Add
+                    </button>
+                `;
+            });
+            html += `
+                <div class="value-add-links-block">
+                    <h4>💡 Premium Value-Addition Sheets Available</h4>
+                    <div class="value-add-links-grid">
+                        ${linksHtml}
+                    </div>
+                </div>
+            `;
+        }
+    }
+    html += parseMarkdownWithMath(note.content);
     html = html.replace(/<blockquote>\s*<p>\[!(TIP|NOTE|IMPORTANT|WARNING|CAUTION)\]([\s\S]*?)<\/p>\s*<\/blockquote>/gi, (match, type, content) => {
         let title = "Context", css = "alert-note";
         if (type === "TIP") { title = "Mnemonic / Strategy"; css = "alert-tip"; }
